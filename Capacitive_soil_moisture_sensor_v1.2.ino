@@ -11,6 +11,12 @@ void setup() {
 void loop() {
   sensorValue = analogRead(A0);
 
+  // recallibration
+  if (sensorValue > airValue)
+    airValue = sensorValue;
+  if (sensorValue < waterValue)
+    waterValue = sensorValue;
+  
   // Map raw values to percentage
   int moisturePercent = map(sensorValue, airValue, waterValue, 0, 100);
   moisturePercent = constrain(moisturePercent, 0, 100);
